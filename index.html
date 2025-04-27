@@ -3,17 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evolution API - Reconexão</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Evolution API - Status de Conexão</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Evolution API</h1>
-            <p>Gerenciamento de Conexão</p>
+            <h1>Strat.AI</h1>
+            <p id="instance-title">Verificando instância...</p>
         </header>
 
-        <main>
+        <main id="main-content">
+            <div id="error-container" class="error-container hidden">
+                <div class="error-message">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="error-icon">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    <h2>Erro de Conexão</h2>
+                    <p id="error-text">Não foi possível conectar à API.</p>
+                    <div class="error-details">
+                        <h3>Possíveis causas:</h3>
+                        <ul>
+                            <li>URL da API incorreta</li>
+                            <li>API Key inválida</li>
+                            <li>Servidor da API offline</li>
+                            <li>Problemas de CORS (Cross-Origin Resource Sharing)</li>
+                            <li>Problemas de rede ou firewall</li>
+                        </ul>
+                    </div>
+                    <button id="retry-connection" class="button">Tentar Novamente</button>
+                </div>
+            </div>
+
             <div class="status-container">
                 <div id="status-indicator" class="status-indicator">
                     <div class="spinner"></div>
@@ -30,16 +53,6 @@
                     <h2>Instância Conectada</h2>
                     <p>Sua instância da Evolution API está conectada e funcionando normalmente.</p>
                 </div>
-                <div class="instance-info">
-                    <div class="info-item">
-                        <strong>Nome da Instância:</strong>
-                        <span id="instance-name">-</span>
-                    </div>
-                    <div class="info-item">
-                        <strong>Conectado desde:</strong>
-                        <span id="connected-since">-</span>
-                    </div>
-                </div>
             </div>
 
             <div id="disconnected-view" class="view hidden">
@@ -50,7 +63,7 @@
                         <line x1="12" y1="17" x2="12.01" y2="17"></line>
                     </svg>
                     <h2>Instância Desconectada</h2>
-                    <p>Escaneie o QR code abaixo para reconectar sua instância.</p>
+                    <p>Escaneie o QR code abaixo para conectar sua instância.</p>
                 </div>
                 <div class="qrcode-container">
                     <div id="qrcode"></div>
@@ -60,8 +73,36 @@
             </div>
         </main>
 
+        <div class="debug-container">
+            <div class="debug-header">
+                <h3>Informações de Debug</h3>
+                <button id="toggle-debug" class="button button-small">Mostrar</button>
+            </div>
+            <div id="debug-content" class="debug-content hidden">
+                <div class="debug-item">
+                    <strong>URL da API:</strong>
+                    <span id="debug-api-url"></span>
+                </div>
+                <div class="debug-item">
+                    <strong>Instância:</strong>
+                    <span id="debug-instance"></span>
+                </div>
+                <div class="debug-item">
+                    <strong>Última verificação:</strong>
+                    <span id="debug-last-check">Nenhuma</span>
+                </div>
+                <div class="debug-item">
+                    <strong>Status da API:</strong>
+                    <span id="debug-api-status">Desconhecido</span>
+                </div>
+                <div class="debug-item">
+                    <button id="test-connection" class="button button-small">Testar Conexão</button>
+                </div>
+            </div>
+        </div>
+
         <footer>
-            <p>Evolution API - Gerenciador de Conexão</p>
+            <p>Evolution API - Verificador de Conexão</p>
         </footer>
     </div>
 
